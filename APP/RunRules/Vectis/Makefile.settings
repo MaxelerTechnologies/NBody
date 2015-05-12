@@ -1,0 +1,17 @@
+# --- User's custom definitions
+USE_SLIC:=1
+# ---
+
+MAXCOMPILER_QUOTE   := $(shell printf %q "$(MAXCOMPILERDIR)")
+
+RUNRULE_ARGS        := -r
+RUNRULE_RUNENV      := LD_LIBRARY_PATH="$(MAXELEROSDIR)/lib:$(LD_LIBRARY_PATH)" 
+RUNRULE_MAXFILES    := NBody.max  
+RUNRULE_MAXFILES_H  := NBody.h 
+RUNRULE_CFLAGS      := 
+RUNRULE_LDFLAGS     := 
+
+TARGET_EXEC         := NBody
+TARGET_LIBRARY      := 
+
+

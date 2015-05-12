@@ -1,0 +1,271 @@
+*** After kernel graph-pass 'Init Graph' ***
+node "MUX" (ID 2950) has unconnected outputs: [result]
+stack trace of node origin follows:
+	com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Control.mux(Control.java:128)
+	com.maxeler.applibrary.nbody.NBodyKernel$Inputs.<init>(NBodyKernel.maxj:183)
+	com.maxeler.applibrary.nbody.NBodyKernel.<init>(NBodyKernel.maxj:218)
+	com.maxeler.applibrary.nbody.NBodyManager.setDesign(NBodyManager.maxj:98)
+	com.maxeler.applibrary.nbody.NBodyManager.<init>(NBodyManager.maxj:33)
+	com.maxeler.applibrary.nbody.NBodyBuilder.main(NBodyBuilder.maxj:24)
+	
+node "MUX" (ID 2954) has unconnected outputs: [result]
+stack trace of node origin follows:
+	com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Control.mux(Control.java:128)
+	com.maxeler.applibrary.nbody.NBodyKernel$Inputs.<init>(NBodyKernel.maxj:183)
+	com.maxeler.applibrary.nbody.NBodyKernel.<init>(NBodyKernel.maxj:218)
+	com.maxeler.applibrary.nbody.NBodyManager.setDesign(NBodyManager.maxj:98)
+	com.maxeler.applibrary.nbody.NBodyManager.<init>(NBodyManager.maxj:33)
+	com.maxeler.applibrary.nbody.NBodyBuilder.main(NBodyBuilder.maxj:24)
+	
+node "MUX" (ID 2958) has unconnected outputs: [result]
+stack trace of node origin follows:
+	com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Control.mux(Control.java:128)
+	com.maxeler.applibrary.nbody.NBodyKernel$Inputs.<init>(NBodyKernel.maxj:183)
+	com.maxeler.applibrary.nbody.NBodyKernel.<init>(NBodyKernel.maxj:218)
+	com.maxeler.applibrary.nbody.NBodyManager.setDesign(NBodyManager.maxj:98)
+	com.maxeler.applibrary.nbody.NBodyManager.<init>(NBodyManager.maxj:33)
+	com.maxeler.applibrary.nbody.NBodyBuilder.main(NBodyBuilder.maxj:24)
+	
+node "MUX" (ID 2962) has unconnected outputs: [result]
+stack trace of node origin follows:
+	com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Control.mux(Control.java:128)
+	com.maxeler.applibrary.nbody.NBodyKernel$Inputs.<init>(NBodyKernel.maxj:183)
+	com.maxeler.applibrary.nbody.NBodyKernel.<init>(NBodyKernel.maxj:218)
+	com.maxeler.applibrary.nbody.NBodyManager.setDesign(NBodyManager.maxj:98)
+	com.maxeler.applibrary.nbody.NBodyManager.<init>(NBodyManager.maxj:33)
+	com.maxeler.applibrary.nbody.NBodyBuilder.main(NBodyBuilder.maxj:24)
+	
+node "MUX" (ID 2966) has unconnected outputs: [result]
+stack trace of node origin follows:
+	com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Control.mux(Control.java:128)
+	com.maxeler.applibrary.nbody.NBodyKernel$Inputs.<init>(NBodyKernel.maxj:183)
+	com.maxeler.applibrary.nbody.NBodyKernel.<init>(NBodyKernel.maxj:218)
+	com.maxeler.applibrary.nbody.NBodyManager.setDesign(NBodyManager.maxj:98)
+	com.maxeler.applibrary.nbody.NBodyManager.<init>(NBodyManager.maxj:33)
+	com.maxeler.applibrary.nbody.NBodyBuilder.main(NBodyBuilder.maxj:24)
+	
+node "MUX" (ID 2970) has unconnected outputs: [result]
+stack trace of node origin follows:
+	com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Control.mux(Control.java:128)
+	com.maxeler.applibrary.nbody.NBodyKernel$Inputs.<init>(NBodyKernel.maxj:183)
+	com.maxeler.applibrary.nbody.NBodyKernel.<init>(NBodyKernel.maxj:218)
+	com.maxeler.applibrary.nbody.NBodyManager.setDesign(NBodyManager.maxj:98)
+	com.maxeler.applibrary.nbody.NBodyManager.<init>(NBodyManager.maxj:33)
+	com.maxeler.applibrary.nbody.NBodyBuilder.main(NBodyBuilder.maxj:24)
+	
+node "MUX" (ID 2974) has unconnected outputs: [result]
+stack trace of node origin follows:
+	com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Control.mux(Control.java:128)
+	com.maxeler.applibrary.nbody.NBodyKernel$Inputs.<init>(NBodyKernel.maxj:183)
+	com.maxeler.applibrary.nbody.NBodyKernel.<init>(NBodyKernel.maxj:218)
+	com.maxeler.applibrary.nbody.NBodyManager.setDesign(NBodyManager.maxj:98)
+	com.maxeler.applibrary.nbody.NBodyManager.<init>(NBodyManager.maxj:33)
+	com.maxeler.applibrary.nbody.NBodyBuilder.main(NBodyBuilder.maxj:24)
+	
+node "MUX" (ID 2978) has unconnected outputs: [result]
+stack trace of node origin follows:
+	com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Control.mux(Control.java:128)
+	com.maxeler.applibrary.nbody.NBodyKernel$Inputs.<init>(NBodyKernel.maxj:183)
+	com.maxeler.applibrary.nbody.NBodyKernel.<init>(NBodyKernel.maxj:218)
+	com.maxeler.applibrary.nbody.NBodyManager.setDesign(NBodyManager.maxj:98)
+	com.maxeler.applibrary.nbody.NBodyManager.<init>(NBodyManager.maxj:33)
+	com.maxeler.applibrary.nbody.NBodyBuilder.main(NBodyBuilder.maxj:24)
+	
+node "MUX" (ID 2982) has unconnected outputs: [result]
+stack trace of node origin follows:
+	com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Control.mux(Control.java:128)
+	com.maxeler.applibrary.nbody.NBodyKernel$Inputs.<init>(NBodyKernel.maxj:183)
+	com.maxeler.applibrary.nbody.NBodyKernel.<init>(NBodyKernel.maxj:218)
+	com.maxeler.applibrary.nbody.NBodyManager.setDesign(NBodyManager.maxj:98)
+	com.maxeler.applibrary.nbody.NBodyManager.<init>(NBodyManager.maxj:33)
+	com.maxeler.applibrary.nbody.NBodyBuilder.main(NBodyBuilder.maxj:24)
+	
+node "MUX" (ID 2986) has unconnected outputs: [result]
+stack trace of node origin follows:
+	com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Control.mux(Control.java:128)
+	com.maxeler.applibrary.nbody.NBodyKernel$Inputs.<init>(NBodyKernel.maxj:183)
+	com.maxeler.applibrary.nbody.NBodyKernel.<init>(NBodyKernel.maxj:218)
+	com.maxeler.applibrary.nbody.NBodyManager.setDesign(NBodyManager.maxj:98)
+	com.maxeler.applibrary.nbody.NBodyManager.<init>(NBodyManager.maxj:33)
+	com.maxeler.applibrary.nbody.NBodyBuilder.main(NBodyBuilder.maxj:24)
+	
+node "MUX" (ID 2990) has unconnected outputs: [result]
+stack trace of node origin follows:
+	com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Control.mux(Control.java:128)
+	com.maxeler.applibrary.nbody.NBodyKernel$Inputs.<init>(NBodyKernel.maxj:183)
+	com.maxeler.applibrary.nbody.NBodyKernel.<init>(NBodyKernel.maxj:218)
+	com.maxeler.applibrary.nbody.NBodyManager.setDesign(NBodyManager.maxj:98)
+	com.maxeler.applibrary.nbody.NBodyManager.<init>(NBodyManager.maxj:33)
+	com.maxeler.applibrary.nbody.NBodyBuilder.main(NBodyBuilder.maxj:24)
+	
+node "MUX" (ID 2994) has unconnected outputs: [result]
+stack trace of node origin follows:
+	com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Control.mux(Control.java:128)
+	com.maxeler.applibrary.nbody.NBodyKernel$Inputs.<init>(NBodyKernel.maxj:183)
+	com.maxeler.applibrary.nbody.NBodyKernel.<init>(NBodyKernel.maxj:218)
+	com.maxeler.applibrary.nbody.NBodyManager.setDesign(NBodyManager.maxj:98)
+	com.maxeler.applibrary.nbody.NBodyManager.<init>(NBodyManager.maxj:33)
+	com.maxeler.applibrary.nbody.NBodyBuilder.main(NBodyBuilder.maxj:24)
+	
+node "MUX" (ID 2998) has unconnected outputs: [result]
+stack trace of node origin follows:
+	com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Control.mux(Control.java:128)
+	com.maxeler.applibrary.nbody.NBodyKernel$Inputs.<init>(NBodyKernel.maxj:183)
+	com.maxeler.applibrary.nbody.NBodyKernel.<init>(NBodyKernel.maxj:218)
+	com.maxeler.applibrary.nbody.NBodyManager.setDesign(NBodyManager.maxj:98)
+	com.maxeler.applibrary.nbody.NBodyManager.<init>(NBodyManager.maxj:33)
+	com.maxeler.applibrary.nbody.NBodyBuilder.main(NBodyBuilder.maxj:24)
+	
+node "MUX" (ID 3002) has unconnected outputs: [result]
+stack trace of node origin follows:
+	com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Control.mux(Control.java:128)
+	com.maxeler.applibrary.nbody.NBodyKernel$Inputs.<init>(NBodyKernel.maxj:183)
+	com.maxeler.applibrary.nbody.NBodyKernel.<init>(NBodyKernel.maxj:218)
+	com.maxeler.applibrary.nbody.NBodyManager.setDesign(NBodyManager.maxj:98)
+	com.maxeler.applibrary.nbody.NBodyManager.<init>(NBodyManager.maxj:33)
+	com.maxeler.applibrary.nbody.NBodyBuilder.main(NBodyBuilder.maxj:24)
+	
+node "MUX" (ID 3006) has unconnected outputs: [result]
+stack trace of node origin follows:
+	com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Control.mux(Control.java:128)
+	com.maxeler.applibrary.nbody.NBodyKernel$Inputs.<init>(NBodyKernel.maxj:183)
+	com.maxeler.applibrary.nbody.NBodyKernel.<init>(NBodyKernel.maxj:218)
+	com.maxeler.applibrary.nbody.NBodyManager.setDesign(NBodyManager.maxj:98)
+	com.maxeler.applibrary.nbody.NBodyManager.<init>(NBodyManager.maxj:33)
+	com.maxeler.applibrary.nbody.NBodyBuilder.main(NBodyBuilder.maxj:24)
+	
+node "MUX" (ID 3010) has unconnected outputs: [result]
+stack trace of node origin follows:
+	com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Control.mux(Control.java:128)
+	com.maxeler.applibrary.nbody.NBodyKernel$Inputs.<init>(NBodyKernel.maxj:183)
+	com.maxeler.applibrary.nbody.NBodyKernel.<init>(NBodyKernel.maxj:218)
+	com.maxeler.applibrary.nbody.NBodyManager.setDesign(NBodyManager.maxj:98)
+	com.maxeler.applibrary.nbody.NBodyManager.<init>(NBodyManager.maxj:33)
+	com.maxeler.applibrary.nbody.NBodyBuilder.main(NBodyBuilder.maxj:24)
+	
+node "MUX" (ID 3014) has unconnected outputs: [result]
+stack trace of node origin follows:
+	com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Control.mux(Control.java:128)
+	com.maxeler.applibrary.nbody.NBodyKernel$Inputs.<init>(NBodyKernel.maxj:183)
+	com.maxeler.applibrary.nbody.NBodyKernel.<init>(NBodyKernel.maxj:218)
+	com.maxeler.applibrary.nbody.NBodyManager.setDesign(NBodyManager.maxj:98)
+	com.maxeler.applibrary.nbody.NBodyManager.<init>(NBodyManager.maxj:33)
+	com.maxeler.applibrary.nbody.NBodyBuilder.main(NBodyBuilder.maxj:24)
+	
+node "MUX" (ID 3018) has unconnected outputs: [result]
+stack trace of node origin follows:
+	com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Control.mux(Control.java:128)
+	com.maxeler.applibrary.nbody.NBodyKernel$Inputs.<init>(NBodyKernel.maxj:183)
+	com.maxeler.applibrary.nbody.NBodyKernel.<init>(NBodyKernel.maxj:218)
+	com.maxeler.applibrary.nbody.NBodyManager.setDesign(NBodyManager.maxj:98)
+	com.maxeler.applibrary.nbody.NBodyManager.<init>(NBodyManager.maxj:33)
+	com.maxeler.applibrary.nbody.NBodyBuilder.main(NBodyBuilder.maxj:24)
+	
+node "MUX" (ID 3022) has unconnected outputs: [result]
+stack trace of node origin follows:
+	com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Control.mux(Control.java:128)
+	com.maxeler.applibrary.nbody.NBodyKernel$Inputs.<init>(NBodyKernel.maxj:183)
+	com.maxeler.applibrary.nbody.NBodyKernel.<init>(NBodyKernel.maxj:218)
+	com.maxeler.applibrary.nbody.NBodyManager.setDesign(NBodyManager.maxj:98)
+	com.maxeler.applibrary.nbody.NBodyManager.<init>(NBodyManager.maxj:33)
+	com.maxeler.applibrary.nbody.NBodyBuilder.main(NBodyBuilder.maxj:24)
+	
+node "MUX" (ID 3026) has unconnected outputs: [result]
+stack trace of node origin follows:
+	com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Control.mux(Control.java:128)
+	com.maxeler.applibrary.nbody.NBodyKernel$Inputs.<init>(NBodyKernel.maxj:183)
+	com.maxeler.applibrary.nbody.NBodyKernel.<init>(NBodyKernel.maxj:218)
+	com.maxeler.applibrary.nbody.NBodyManager.setDesign(NBodyManager.maxj:98)
+	com.maxeler.applibrary.nbody.NBodyManager.<init>(NBodyManager.maxj:33)
+	com.maxeler.applibrary.nbody.NBodyBuilder.main(NBodyBuilder.maxj:24)
+	
+node "MUX" (ID 3030) has unconnected outputs: [result]
+stack trace of node origin follows:
+	com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Control.mux(Control.java:128)
+	com.maxeler.applibrary.nbody.NBodyKernel$Inputs.<init>(NBodyKernel.maxj:183)
+	com.maxeler.applibrary.nbody.NBodyKernel.<init>(NBodyKernel.maxj:218)
+	com.maxeler.applibrary.nbody.NBodyManager.setDesign(NBodyManager.maxj:98)
+	com.maxeler.applibrary.nbody.NBodyManager.<init>(NBodyManager.maxj:33)
+	com.maxeler.applibrary.nbody.NBodyBuilder.main(NBodyBuilder.maxj:24)
+	
+node "MUX" (ID 3034) has unconnected outputs: [result]
+stack trace of node origin follows:
+	com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Control.mux(Control.java:128)
+	com.maxeler.applibrary.nbody.NBodyKernel$Inputs.<init>(NBodyKernel.maxj:183)
+	com.maxeler.applibrary.nbody.NBodyKernel.<init>(NBodyKernel.maxj:218)
+	com.maxeler.applibrary.nbody.NBodyManager.setDesign(NBodyManager.maxj:98)
+	com.maxeler.applibrary.nbody.NBodyManager.<init>(NBodyManager.maxj:33)
+	com.maxeler.applibrary.nbody.NBodyBuilder.main(NBodyBuilder.maxj:24)
+	
+node "MUX" (ID 3038) has unconnected outputs: [result]
+stack trace of node origin follows:
+	com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Control.mux(Control.java:128)
+	com.maxeler.applibrary.nbody.NBodyKernel$Inputs.<init>(NBodyKernel.maxj:183)
+	com.maxeler.applibrary.nbody.NBodyKernel.<init>(NBodyKernel.maxj:218)
+	com.maxeler.applibrary.nbody.NBodyManager.setDesign(NBodyManager.maxj:98)
+	com.maxeler.applibrary.nbody.NBodyManager.<init>(NBodyManager.maxj:33)
+	com.maxeler.applibrary.nbody.NBodyBuilder.main(NBodyBuilder.maxj:24)
+	
+node "MUX" (ID 3042) has unconnected outputs: [result]
+stack trace of node origin follows:
+	com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Control.mux(Control.java:128)
+	com.maxeler.applibrary.nbody.NBodyKernel$Inputs.<init>(NBodyKernel.maxj:183)
+	com.maxeler.applibrary.nbody.NBodyKernel.<init>(NBodyKernel.maxj:218)
+	com.maxeler.applibrary.nbody.NBodyManager.setDesign(NBodyManager.maxj:98)
+	com.maxeler.applibrary.nbody.NBodyManager.<init>(NBodyManager.maxj:33)
+	com.maxeler.applibrary.nbody.NBodyBuilder.main(NBodyBuilder.maxj:24)
+	
+node "MUX" (ID 3046) has unconnected outputs: [result]
+stack trace of node origin follows:
+	com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Control.mux(Control.java:128)
+	com.maxeler.applibrary.nbody.NBodyKernel$Inputs.<init>(NBodyKernel.maxj:183)
+	com.maxeler.applibrary.nbody.NBodyKernel.<init>(NBodyKernel.maxj:218)
+	com.maxeler.applibrary.nbody.NBodyManager.setDesign(NBodyManager.maxj:98)
+	com.maxeler.applibrary.nbody.NBodyManager.<init>(NBodyManager.maxj:33)
+	com.maxeler.applibrary.nbody.NBodyBuilder.main(NBodyBuilder.maxj:24)
+	
+node "MUX" (ID 3050) has unconnected outputs: [result]
+stack trace of node origin follows:
+	com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Control.mux(Control.java:128)
+	com.maxeler.applibrary.nbody.NBodyKernel$Inputs.<init>(NBodyKernel.maxj:183)
+	com.maxeler.applibrary.nbody.NBodyKernel.<init>(NBodyKernel.maxj:218)
+	com.maxeler.applibrary.nbody.NBodyManager.setDesign(NBodyManager.maxj:98)
+	com.maxeler.applibrary.nbody.NBodyManager.<init>(NBodyManager.maxj:33)
+	com.maxeler.applibrary.nbody.NBodyBuilder.main(NBodyBuilder.maxj:24)
+	
+node "MUX" (ID 3054) has unconnected outputs: [result]
+stack trace of node origin follows:
+	com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Control.mux(Control.java:128)
+	com.maxeler.applibrary.nbody.NBodyKernel$Inputs.<init>(NBodyKernel.maxj:183)
+	com.maxeler.applibrary.nbody.NBodyKernel.<init>(NBodyKernel.maxj:218)
+	com.maxeler.applibrary.nbody.NBodyManager.setDesign(NBodyManager.maxj:98)
+	com.maxeler.applibrary.nbody.NBodyManager.<init>(NBodyManager.maxj:33)
+	com.maxeler.applibrary.nbody.NBodyBuilder.main(NBodyBuilder.maxj:24)
+	
+node "MUX" (ID 3058) has unconnected outputs: [result]
+stack trace of node origin follows:
+	com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Control.mux(Control.java:128)
+	com.maxeler.applibrary.nbody.NBodyKernel$Inputs.<init>(NBodyKernel.maxj:183)
+	com.maxeler.applibrary.nbody.NBodyKernel.<init>(NBodyKernel.maxj:218)
+	com.maxeler.applibrary.nbody.NBodyManager.setDesign(NBodyManager.maxj:98)
+	com.maxeler.applibrary.nbody.NBodyManager.<init>(NBodyManager.maxj:33)
+	com.maxeler.applibrary.nbody.NBodyBuilder.main(NBodyBuilder.maxj:24)
+	
+node "MUX" (ID 3062) has unconnected outputs: [result]
+stack trace of node origin follows:
+	com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Control.mux(Control.java:128)
+	com.maxeler.applibrary.nbody.NBodyKernel$Inputs.<init>(NBodyKernel.maxj:183)
+	com.maxeler.applibrary.nbody.NBodyKernel.<init>(NBodyKernel.maxj:218)
+	com.maxeler.applibrary.nbody.NBodyManager.setDesign(NBodyManager.maxj:98)
+	com.maxeler.applibrary.nbody.NBodyManager.<init>(NBodyManager.maxj:33)
+	com.maxeler.applibrary.nbody.NBodyBuilder.main(NBodyBuilder.maxj:24)
+	
+node "MUX" (ID 3066) has unconnected outputs: [result]
+stack trace of node origin follows:
+	com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Control.mux(Control.java:128)
+	com.maxeler.applibrary.nbody.NBodyKernel$Inputs.<init>(NBodyKernel.maxj:183)
+	com.maxeler.applibrary.nbody.NBodyKernel.<init>(NBodyKernel.maxj:218)
+	com.maxeler.applibrary.nbody.NBodyManager.setDesign(NBodyManager.maxj:98)
+	com.maxeler.applibrary.nbody.NBodyManager.<init>(NBodyManager.maxj:33)
+	com.maxeler.applibrary.nbody.NBodyBuilder.main(NBodyBuilder.maxj:24)
+	

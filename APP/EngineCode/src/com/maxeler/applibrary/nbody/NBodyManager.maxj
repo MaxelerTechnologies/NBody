@@ -1,0 +1,104 @@
+package com.maxeler.applibrary.nbody;
+
+import com.maxeler.maxcompiler.v2.kernelcompiler.KernelConfiguration;
+import com.maxeler.maxcompiler.v2.kernelcompiler.KernelConfiguration.SimulationOptions.SimulationBehaviour;
+import com.maxeler.maxcompiler.v2.kernelcompiler.KernelParameters;
+import com.maxeler.maxcompiler.v2.managers.custom.CustomManager;
+import com.maxeler.maxcompiler.v2.managers.custom.DFELink;
+import com.maxeler.maxcompiler.v2.managers.custom.blocks.KernelBlock;
+import com.maxeler.maxcompiler.v2.managers.custom.stdlib.DebugLevel;
+import com.maxeler.maxcompiler.v2.managers.engine_interfaces.CPUTypes;
+import com.maxeler.maxcompiler.v2.managers.engine_interfaces.EngineInterface;
+import com.maxeler.maxcompiler.v2.managers.engine_interfaces.InterfaceParam;
+
+/**
+ * The N-Body manager
+ */
+public final class NBodyManager extends CustomManager {
+
+	private final NBodyEngineParameters m_params;
+	private KernelConfiguration m_kernelConfig;
+
+	/**
+	 * Constructor
+	 * @param params	The N-body engine parameters
+	 */
+	public NBodyManager(NBodyEngineParameters params) {
+		super(params);
+
+		m_params = params;
+
+		setConfiguration();
+		addModes();
+		setDesign();
+
+		params.writeConstants(this);
+
+	}
+
+	/**
+	 * Set the manager and kernel configuration
+	 */
+	private void setConfiguration() {
+		DebugLevel debugLevel = new DebugLevel();
+		debugLevel.setHasStreamStatus(m_params.getHasStreamStatus());
+		debug.setDebugLevel(debugLevel);
+
+		m_kernelConfig = getCurrentKernelConfig();
+		m_kernelConfig.simulation.setRAMAddressCollisionBehaviour(SimulationBehaviour.WARNING);
+	}
+
+	/**
+	 * Create the default engine mode
+	 * @return The default engine mode
+	 */
+	private EngineInterface createDefaultMode() {
+		EngineInterface mode = new EngineInterface("default");
+		InterfaceParam N = mode.addParam("N", CPUTypes.INT32, "Number of particles");
+		mode.setScalar(NBodyKernel.class.getSimpleName(), "N", N);
+		/* The particles are loaded in BRAM in the first N cycles */
+		mode.setTicks(NBodyKernel.class.getSimpleName(), N + N * N/m_params.getNumPipes());
+		mode.setStream("acc", CPUTypes.FLOAT, N * 4 * 4);
+		mode.setStream("fromhost", CPUTypes.FLOAT, N * 4 * 4);
+		return mode;
+	}
+
+	/**
+	 * Create advanced mode
+	 * @return An advanced engine mode
+	 */
+	private EngineInterface createAdvancedMode() {
+		EngineInterface mode = new EngineInterface("advanced");
+		InterfaceParam N = mode.addParam("N", CPUTypes.INT32, "Number of particles in system");
+		InterfaceParam P = mode.addParam("P", CPUTypes.INT32, "Number of particles to compute acceleration for");
+		mode.setScalar(NBodyKernel.class.getSimpleName(), "N", N);
+		/* The particles are loaded in BRAM in the first N cycles */
+		mode.setTicks(NBodyKernel.class.getSimpleName(), N + N * P/m_params.getNumPipes());
+		mode.setStream("acc", CPUTypes.FLOAT, P * 4 * 4);
+		mode.setStream("fromhost", CPUTypes.FLOAT, N * 4 * 4);
+		return mode;
+	}
+
+	/**
+	 * Add engine modes to the manager
+	 */
+	private void addModes() {
+		createSLiCinterface(createDefaultMode());
+		createSLiCinterface(createAdvancedMode());
+	}
+
+	/**
+	 * Set the manager design.
+	 * <p>
+	 * Instantiate kernel block and connect it to input and output streams
+	 */
+	private void setDesign() {
+		KernelParameters kernelParams = makeKernelParameters(
+				NBodyKernel.class.getSimpleName(), m_kernelConfig);
+		KernelBlock kernel = addKernel(new NBodyKernel(kernelParams, m_params));
+		DFELink acc = addStreamToCPU("acc");
+		DFELink fromhost = addStreamFromCPU("fromhost");
+		kernel.getInput("particle") <== fromhost;
+		acc <== kernel.getOutput("acc");
+	}
+}

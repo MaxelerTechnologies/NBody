@@ -1,0 +1,271 @@
+package com.maxeler.applibrary.nbody;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.maxeler.maxcompiler.v2.kernelcompiler.Kernel;
+import com.maxeler.maxcompiler.v2.kernelcompiler.KernelParameters;
+import com.maxeler.maxcompiler.v2.kernelcompiler.Optimization;
+import com.maxeler.maxcompiler.v2.kernelcompiler.op_management.MathOps;
+import com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.KernelMath;
+import com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.Reductions;
+import com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Count.WrapMode;
+import com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Mem.DualPortMemOutputs;
+import com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Mem.RamPortMode;
+import com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Mem.RamPortParams;
+import com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Mem.RamWriteMode;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEType;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.composite.DFEStruct;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.composite.DFEStructType;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.composite.DFEVector;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.composite.DFEVectorType;
+import com.maxeler.maxcompiler.v2.utils.MathUtils;
+
+/**
+ * {@code Kernel} for the N-body simulation.
+ * <p>
+ * Simulates the interactions between N particles under gravitational forces
+ * in space. This kernel computes the sum of the acceleration vectors
+ * applied to each particle.
+ */
+public class NBodyKernel extends Kernel {
+
+	/**
+	 * Data types used within the {@link NBodyKernel}
+	 */
+	static protected class Types {
+		final public DFEType scalar;
+		final public DFEStructType particle;
+		final public DFEVectorType<DFEStruct> iParticleArray;
+		final public DFEVectorType<DFEStruct> output;
+
+		/**
+		 * Constructor
+		 * @param params	The N-body engine parameters
+		 */
+		Types(NBodyEngineParameters params) {
+			scalar = dfeFloat(8, 24);
+			particle = new DFEStructType(
+					DFEStructType.sft("x", scalar),
+					DFEStructType.sft("y", scalar),
+					DFEStructType.sft("z", scalar),
+					DFEStructType.sft("m", scalar)
+			);
+			DFEStructType outputStruct = new DFEStructType(
+					DFEStructType.sft("x", scalar),
+					DFEStructType.sft("y", scalar),
+					DFEStructType.sft("z", scalar),
+					DFEStructType.sft("pad", scalar)
+			);
+
+			iParticleArray = new DFEVectorType<DFEStruct>(particle, params.getNumPipes());
+
+			output = new DFEVectorType<DFEStruct>(outputStruct, params.getNumPipes());
+		}
+	}
+
+	/**
+	 * Scalar inputs used within the {@link NBodyKernel}
+	 */
+	static private class Scalars {
+		final public DFEVar N;
+		final public DFEVar EPS;
+
+		/**
+		 * Constructor
+		 * @param k			The N-body kernel
+		 * @param params	The N-body engine parameters
+		 * @param types		Data types
+		 */
+		Scalars(Kernel k, NBodyEngineParameters params, Types types) {
+			N = k.io.scalarInput("N", dfeUInt(32)).cast(
+					dfeUInt(MathUtils.bitsToRepresent(params.getMaxParticles()))
+			);
+			EPS = k.io.scalarInput("EPS", types.scalar);
+		}
+	}
+
+	/**
+	 * Control logic used by the {@link NBodyKernel}
+	 */
+	static private class Controls {
+		final public DFEVar loadCount;
+		final public DFEVar loadEnable;
+		final public DFEVar latencyCount;
+		final public DFEVar jCount;
+		final public DFEVar iCount;
+		final public DFEVar isInit;
+		final public DFEVar outputEnable;
+		final public DFEVar jHoldEnable;
+
+		/**
+		 * Constructor
+		 * @param k			The N-body kernel
+		 * @param params	The N-body engine parameters
+		 * @param scalars	Scalar inputs
+		 */
+		Controls(Kernel k, NBodyEngineParameters params, Scalars scalars) {
+
+			loadCount = k.control.count.makeCounter(
+					k.control.count.makeParams(MathUtils.bitsToRepresent(params.getMaxParticles()))
+					.withMax(scalars.N)
+					.withWrapMode(WrapMode.STOP_AT_MAX)).getCount();
+			loadEnable = loadCount < scalars.N;
+
+			latencyCount = k.control.count.makeCounter(
+					k.control.count.makeParams(MathUtils.bitsToAddress(params.getLoopLatency()))
+					.withMax(params.getLoopLatency())
+					.withEnable(~loadEnable)).getCount();
+			jCount = k.control.count.makeCounter(
+					k.control.count.makeParams(MathUtils.bitsToAddress(params.getMaxParticles()))
+					.withMax(scalars.N)
+					.withEnable(latencyCount === params.getLoopLatency()-1)).getCount();
+			isInit = jCount === 0;
+			outputEnable = jCount === (scalars.N - 1);
+			k.optimization.pushFixOpMode(
+					Optimization.bitSizeLargest(), Optimization.offsetExact(0), MathOps.ADD);
+			iCount = k.control.count.makeCounter(
+								k.control.count.makeParams(
+										MathUtils.bitsToAddress(params.getMaxParticles())
+								)
+								.withEnable(jCount < params.getNumPipes() & ~loadEnable)
+						).getCount();
+			k.optimization.popFixOpMode(MathOps.ADD);
+			jHoldEnable = jCount === 0 & latencyCount === 0;
+
+		}
+	}
+
+	/**
+	 * Inputs streams to the {@link NBodyKernel}
+	 */
+	static private class Inputs {
+
+		final public DFEVector<DFEStruct> iParticleArray;
+		final public DFEStruct jParticle;
+
+		/**
+		 * Constructor
+		 * @param k			The N-body kernel
+		 * @param params	The N-body engine parameters
+		 * @param types		Data types
+		 * @param controls	Control logic
+		 */
+		Inputs(Kernel k, NBodyEngineParameters params, Types types, Controls controls) {
+
+			DFEStruct srcParticle = k.io.input("particle", types.particle, controls.loadEnable);
+
+			DFEVar iAddress = controls.iCount;
+			DFEVar jAddress = controls.loadEnable ? controls.loadCount : controls.jCount;
+
+			RamPortParams<DFEStruct> iPortParams =
+				k.mem.makeRamPortParams(RamPortMode.READ_ONLY, iAddress, types.particle);
+			RamPortParams<DFEStruct> jPortParams =
+				k.mem.makeRamPortParams(RamPortMode.READ_WRITE, jAddress, types.particle)
+				.withDataIn(srcParticle).withWriteEnable(controls.loadEnable);
+			DualPortMemOutputs<DFEStruct> ram = k.mem.ramDualPort(
+					params.getMaxParticles(), RamWriteMode.READ_FIRST, iPortParams, jPortParams);
+
+			jParticle = ram.getOutputB();
+
+			DFEStruct iParticleIn = ram.getOutputA();
+
+			List<DFEVector<DFEStruct>> iParticleList = new ArrayList<DFEVector<DFEStruct>>(params.getLoopLatency());
+			for (int j = 0; j < params.getLoopLatency(); j++) {
+				DFEVector<DFEStruct> iParticleTmpArray = types.iParticleArray.newInstance(k);
+				for (int i = 0; i < params.getNumPipes(); i++) {
+					DFEStruct p = k.stream.offset(iParticleIn, params.getNumPipes()*j + i);
+					iParticleTmpArray[i] <== Reductions.streamHold(p, controls.jHoldEnable);
+				}
+				iParticleList.add(j, iParticleTmpArray);
+			}
+			iParticleArray = k.control.mux(controls.latencyCount, iParticleList);
+		}
+	}
+
+	/**
+	 * Output streams from the {@link NBodyKernel}
+	 */
+	static private class Outputs {
+		final public DFEVector<DFEStruct> acc;
+
+		/**
+		 * Constructor
+		 * @param k			The N-body kernel
+		 * @param types		The N-body engine parameters
+		 * @param controls	Control logic
+		 */
+		Outputs(Kernel k, Types types, Controls controls) {
+			acc = k.io.output("acc", types.output, controls.outputEnable);
+		}
+	}
+
+	/**
+	 * Constructor
+	 * @param kernelParams	Kernel parameters
+	 * @param params		The N-body engine parameters
+	 */
+	public NBodyKernel(KernelParameters kernelParams, NBodyEngineParameters params) {
+		super(kernelParams);
+
+		Types types = new Types(params);
+
+		Scalars scalars = new Scalars(this, params, types);
+
+		Controls controls = new Controls(this, params, scalars);
+
+		Inputs inputs = new Inputs(this, params, types, controls);
+
+		Outputs outputs = new Outputs(this, types, controls);
+
+		DFEStruct jParticle = inputs.jParticle;
+		DFEVar pjX = jParticle["x"];
+		DFEVar pjY = jParticle["y"];
+		DFEVar pjZ = jParticle["z"];
+		DFEVar pjM = jParticle["m"];
+
+		DFEVar zero = constant.zero(types.scalar);
+
+		for (int p = 0; p < params.getNumPipes(); p++) {
+
+			DFEStruct iParticle = inputs.iParticleArray[p];
+			DFEVar piX = iParticle["x"];
+			DFEVar piY = iParticle["y"];
+			DFEVar piZ = iParticle["z"];
+
+			optimization.pushPipeliningFactor(0.9);
+
+			DFEVar aTempX = types.scalar.newInstance(this);
+			DFEVar aTempY = types.scalar.newInstance(this);
+			DFEVar aTempZ = types.scalar.newInstance(this);
+
+			DFEVar acNowX = controls.isInit ? 0.0 : aTempX;
+			DFEVar acNowY = controls.isInit ? 0.0 : aTempY;
+			DFEVar acNowZ = controls.isInit ? 0.0 : aTempZ;
+
+			optimization.pushDSPFactor(1);
+			DFEVar rx = pjX - piX;
+			DFEVar ry = pjY - piY;
+			DFEVar rz = pjZ - piZ;
+			DFEVar dd = rx*rx + ry*ry + rz*rz + scalars.EPS;
+			DFEVar d = 1 / (dd * KernelMath.sqrt(dd));
+			DFEVar s = pjM * d;
+			DFEVar accX = acNowX + rx*s;
+			DFEVar accY = acNowY + ry*s;
+			DFEVar accZ = acNowZ + rz*s;
+			optimization.popDSPFactor();
+
+			aTempX <== stream.offset(accX, -params.getLoopLatency());
+			aTempY <== stream.offset(accY, -params.getLoopLatency());
+			aTempZ <== stream.offset(accZ, -params.getLoopLatency());
+
+			optimization.popPipeliningFactor();
+
+			outputs.acc[p].set("x", accX);
+			outputs.acc[p].set("y", accY);
+			outputs.acc[p].set("z", accZ);
+			outputs.acc[p].set("pad", zero);
+		}
+	}
+}

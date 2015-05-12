@@ -1,0 +1,28 @@
+package com.maxeler.applibrary.nbody;
+
+import com.maxeler.maxcompiler.v2.build.ApplicationParameters;
+import com.maxeler.maxcompiler.v2.managers.BuildConfig;
+import com.maxeler.maxcompiler.v2.managers.BuildConfig.Level;
+
+
+/**
+ * Bitstream builder class.
+ * <p>
+ * Contains the {@code main} method to be called for building a simulation
+ * or hardware bitstream. The bitstream is built with the default engine
+ * parameters. They can be changed on the command line, or by passing the
+ * path to a file defining the engine parameters.
+ * @see NBodyEngineParameters
+ * @see ApplicationParameters
+ */
+public class NBodyBuilder {
+	public static void main(String[] args) {
+		NBodyEngineParameters params = new NBodyEngineParameters(args);
+		BuildConfig buildConfig = new BuildConfig(Level.FULL_BUILD);
+		buildConfig.setMPPRParallelism(params.getMPPRThreads());
+		buildConfig.setMPPRCostTableSearchRange(params.getMPPRStartCT(), params.getMPPREndCT());
+		NBodyManager manager = new NBodyManager(params);
+		manager.setBuildConfig(buildConfig);
+		manager.build();
+	}
+}

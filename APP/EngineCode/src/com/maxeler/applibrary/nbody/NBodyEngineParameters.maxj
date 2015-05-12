@@ -1,0 +1,99 @@
+package com.maxeler.applibrary.nbody;
+
+import com.maxeler.maxcompiler.v2.build.EngineParameters;
+import com.maxeler.maxcompiler.v2.managers.DFEModel;
+
+/**
+ * Parameters for the N-Body engine
+ *
+ * @see EngineParameters
+ */
+public class NBodyEngineParameters extends EngineParameters {
+
+//	private static final String board                = "board";
+//	private static final String maxFileName          = "maxFileName";
+//	private static final String target               = "target";
+//	private static final String numPipes             = "numPipes";
+//	private static final String tag                  = "tag";
+//	private static final String hasStreamStatus      = "hasStreamStatus";
+
+	public NBodyEngineParameters(String[] argv) {
+		super(argv);
+	}
+
+	public int getNumPipes() {
+		return getParam("numPipes");
+	}
+
+	public String getSuffix() {
+		return getParam("suffix");
+	}
+
+	public boolean getHasStreamStatus() {
+		return getParam("hasStreamStatus");
+	}
+
+	protected int getLoopLatency() {
+		return getParam("loopLatency");
+	}
+
+	protected int getMaxParticles() {
+		return getParam("maxParticles");
+	}
+
+//	public Target getTarget() {
+//		return getParam("target");
+//	}
+//
+//	public String getMaxFileName() {
+//		return getParam("maxFileName");
+//	}
+
+	@Override
+	protected void declarations() {
+		/* Standard parameters */
+
+		// naming
+		declareParam("maxFileName", DataType.STRING, "NBody");
+		declareParam("suffix", DataType.STRING, "");
+
+		// build parameters
+		declareParam("target", Target.class, Target.DFE_SIM);
+		declareParam("DFEModel", DataType.DFEMODEL, DFEModel.MAIA);
+
+		// common kernel parameters
+		declareParam("numPipes", DataType.INT, 1);
+
+		// for debugging
+		declareParam("hasStreamStatus", DataType.BOOL, true);
+
+		/* Custom constants */
+		declareConstant("loopLatency", DataType.INT, 12);
+		declareConstant("maxParticles", DataType.INT, 65535);
+	}
+
+	@Override
+	protected void validate() {
+
+	}
+
+	@Override
+	protected void deriveParameters() {
+
+	}
+
+	@Override
+	public String getBuildName() {
+		return String.format("%s_%s_%s_%s",
+				getMaxFileName(), getDFEModel().toString(), getTarget().toString(),
+				getSuffix());
+	}
+
+	protected void writeConstants(NBodyManager manager) {
+		manager.addMaxFileConstant("loopLatency", getLoopLatency());
+		manager.addMaxFileConstant("numPipes", getNumPipes());
+		manager.addMaxFileConstant("maxParticles", getMaxParticles());
+		int numParticlesDivisor = getLoopLatency() * getNumPipes();
+		manager.addMaxFileConstant("numParticlesDivisor", numParticlesDivisor);
+	}
+}

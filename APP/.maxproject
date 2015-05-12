@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<maxCompilerManager version="2">
+<enginePart internalEngineSubproject="NBody_EngineCode" isSrcBin="false" isUseDefaultSelected="false" outputLocation="/NBody_EngineCode/bin" projectName="NBody"/>
+<cpuPart internalCpuSubproject="NBody_CPUCode"/>
+<watchedFiles/>
+</maxCompilerManager>

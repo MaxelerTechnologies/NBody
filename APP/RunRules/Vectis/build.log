@@ -1,0 +1,47 @@
+Tue 15:12: ########################################## 
+Tue 15:12: Compiling.
+Tue 15:12: ########################################## 
+
+Tue 15:12: MaxCompiler version: 2014.2.
+Tue 15:12: Build Vectis run rule for NBody start time: Tue May 12 15:12:15 BST 2015.
+Tue 15:12: Project location: /home/imilankovic/workspace/NBody.
+Tue 15:12: Detailed build log: /home/imilankovic/workspace/NBody/RunRules/Vectis/build.log.
+
+Tue 15:12: Compiling Engine Code.
+Tue 15:12: Building NBody.max file. 
+Tue 15:12: Setting environment variable:
+Tue 15:12: MAXCOMPILER_BUILD_DIR : /network-scratch/imilankovic/maxdc_builds/
+Tue 15:12: MAX_BUILDPARAMS : DFEModel='VECTIS' target='DFE' maxFileName='NBody' MPPRThreads='2' MPPRStartCT='1' MPPREndCT='16' numPipes='30'  
+Tue 15:12: Building output:
+Tue 15:12: MaxCompiler version: 2014.2
+Tue 15:12: Build "NBody" start time: Tue May 12 15:12:23 BST 2015
+Tue 15:12: Main build process running as user imilankovic on host nxws17.office.maxeler.com
+Tue 15:12: Build location: /home/imilankovic/builds/12-05-15/NBody_VECTIS_DFE_
+Tue 15:12: Detailed build log available in "_build.log"
+Tue 15:12: 
+Tue 15:12: ENGINE BUILD PARAMETERS
+Tue 15:12: 	        Build name: NBody_VECTIS_DFE_
+Tue 15:12: 	          DFEModel: VECTIS           
+Tue 15:12: 	       maxFileName: NBody            
+Tue 15:12: 	            target: DFE              
+Tue 15:12: 	        enableMPCX: false            
+Tue 15:12: 	       MPPRStartCT: 1                
+Tue 15:12: 	         MPPREndCT: 16               
+Tue 15:12: 	       MPPRThreads: 2                
+Tue 15:12: 	MPPRRetryThreshold: 0                
+Tue 15:12: 	            suffix:                  
+Tue 15:12: 	          numPipes: 30               
+Tue 15:12: 	   hasStreamStatus: true             
+Tue 15:12: Instantiating kernel "NBodyKernel"
+Tue 15:12: WARNING: Floating-point casts ignore set rounding mode and use TONEAREVEN rounding only.
+Tue 15:12: 
+Tue 15:12: Compiling kernel "NBodyKernel"
+Tue 15:12: WARNING: Warning (UNCONNECTED_DESIGN_ELEMENT):
+Tue 15:12: WARNING: Unconnected elements in design 'NBodyKernel'
+Tue 15:12: WARNING: details in : /home/imilankovic/builds/12-05-15/NBody_VECTIS_DFE_/scratch/NBodyKernel_graph_warnings.txt
+Tue 15:13: Generating input files (VHDL, netlists, MegaWizard/CoreGen)
+Tue 15:13: Engine build terminated by user.
+Tue 15:13: Engine build terminated by user
+Tue 15:13: Build failed: Tue May 12 15:13:12 BST 2015
+
+
