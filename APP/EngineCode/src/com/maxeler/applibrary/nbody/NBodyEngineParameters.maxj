@@ -60,6 +60,7 @@ public class NBodyEngineParameters extends EngineParameters {
 		// build parameters
 		declareParam("target", Target.class, Target.DFE_SIM);
 		declareParam("DFEModel", DataType.DFEMODEL, DFEModel.MAIA);
+		declareParam("loopLatency", DataType.INT, 14);  // for MAX4 14, for MAX3 12
 
 		// common kernel parameters
 		declareParam("numPipes", DataType.INT, 1);
@@ -68,7 +69,6 @@ public class NBodyEngineParameters extends EngineParameters {
 		declareParam("hasStreamStatus", DataType.BOOL, true);
 
 		/* Custom constants */
-		declareConstant("loopLatency", DataType.INT, 12);
 		declareConstant("maxParticles", DataType.INT, 65535);
 	}
 

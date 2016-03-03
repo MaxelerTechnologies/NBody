@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.maxeler.maxcompiler.v2.kernelcompiler.Kernel;
+import com.maxeler.maxcompiler.v2.kernelcompiler.KernelLib;
 import com.maxeler.maxcompiler.v2.kernelcompiler.KernelParameters;
 import com.maxeler.maxcompiler.v2.kernelcompiler.Optimization;
 import com.maxeler.maxcompiler.v2.kernelcompiler.op_management.MathOps;
@@ -165,11 +166,11 @@ public class NBodyKernel extends Kernel {
 				k.mem.makeRamPortParams(RamPortMode.READ_WRITE, jAddress, types.particle)
 				.withDataIn(srcParticle).withWriteEnable(controls.loadEnable);
 			DualPortMemOutputs<DFEStruct> ram = k.mem.ramDualPort(
-					params.getMaxParticles(), RamWriteMode.READ_FIRST, iPortParams, jPortParams);
+					params.getMaxParticles(), RamWriteMode.WRITE_FIRST, iPortParams, jPortParams);
 
-			jParticle = ram.getOutputB();
+			jParticle = controls.loadEnable ? k.constant.zero(types.particle) : ram.getOutputB();
 
-			DFEStruct iParticleIn = ram.getOutputA();
+			DFEStruct iParticleIn = controls.loadEnable ? k.constant.zero(types.particle) : ram.getOutputA();
 
 			List<DFEVector<DFEStruct>> iParticleList = new ArrayList<DFEVector<DFEStruct>>(params.getLoopLatency());
 			for (int j = 0; j < params.getLoopLatency(); j++) {
@@ -198,6 +199,31 @@ public class NBodyKernel extends Kernel {
 		 */
 		Outputs(Kernel k, Types types, Controls controls) {
 			acc = k.io.output("acc", types.output, controls.outputEnable);
+		}
+	}
+
+	class DFEParLoop extends KernelLib {
+		DFEVar feed_in[], feedback[], start_feedback;
+		int loop;
+		DFEParLoop(Kernel owner, DFEVar sf, int l) {
+			super(owner);
+			start_feedback = sf;
+			loop = l;
+		}
+
+		void set_inputs(int num_of_inputs, DFEType fb_type, double init) {
+			feed_in = new DFEVar [num_of_inputs];
+			feedback  = new DFEVar [num_of_inputs];
+			for (int i = 0; i < num_of_inputs; i++) {
+				feed_in[i] = fb_type.newInstance(this);
+				feedback[i] = start_feedback ? init : feed_in[i];
+			}
+		}
+
+		void set_outputs(DFEVar... results) {
+			for (int i = 0; i < results.length; i++) {
+				feed_in[i] <== stream.offset(results[i], -loop); // connect the loop
+			}
 		}
 	}
 
@@ -236,14 +262,6 @@ public class NBodyKernel extends Kernel {
 
 			optimization.pushPipeliningFactor(0.9);
 
-			DFEVar aTempX = types.scalar.newInstance(this);
-			DFEVar aTempY = types.scalar.newInstance(this);
-			DFEVar aTempZ = types.scalar.newInstance(this);
-
-			DFEVar acNowX = controls.isInit ? 0.0 : aTempX;
-			DFEVar acNowY = controls.isInit ? 0.0 : aTempY;
-			DFEVar acNowZ = controls.isInit ? 0.0 : aTempZ;
-
 			optimization.pushDSPFactor(1);
 			DFEVar rx = pjX - piX;
 			DFEVar ry = pjY - piY;
@@ -251,14 +269,15 @@ public class NBodyKernel extends Kernel {
 			DFEVar dd = rx*rx + ry*ry + rz*rz + scalars.EPS;
 			DFEVar d = 1 / (dd * KernelMath.sqrt(dd));
 			DFEVar s = pjM * d;
-			DFEVar accX = acNowX + rx*s;
-			DFEVar accY = acNowY + ry*s;
-			DFEVar accZ = acNowZ + rz*s;
-			optimization.popDSPFactor();
 
-			aTempX <== stream.offset(accX, -params.getLoopLatency());
-			aTempY <== stream.offset(accY, -params.getLoopLatency());
-			aTempZ <== stream.offset(accZ, -params.getLoopLatency());
+			DFEParLoop lp = new DFEParLoop (this, controls.isInit, params.getLoopLatency());
+			lp.set_inputs(3, types.scalar, 0.0);
+			DFEVar accX = lp.feedback[0] + rx*s;
+			DFEVar accY = lp.feedback[1] + ry*s;
+			DFEVar accZ = lp.feedback[2] + rz*s;
+			lp.set_outputs(accX, accY, accZ);
+
+			optimization.popDSPFactor();
 
 			optimization.popPipeliningFactor();
 
