@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <buildProfile>
 <common>
-<boardModel type="VECTIS"/>
+<boardModel type="MAIA"/>
 <simulation enabled="true"/>
 <enableMPCX enabled="false"/>
 </common>
@@ -10,7 +10,8 @@
 <runConfiguration askBeforeAutoBuild="false">
 <mainClass>com.maxeler.applibrary.nbody.NBodyBuilder</mainClass>
 <maxHeapSize>2</maxHeapSize>
-<programArgument argument="numPipes" value="8"/>
+<programArgument argument="numPipes" value="2"/>
+<programArgument argument="loopLatency" value="14"/>
 </runConfiguration>
 <selectEngineTarget enabled="false">VECTIS</selectEngineTarget>
 <overrideEnableMPCX enabled="false" value="false"/>

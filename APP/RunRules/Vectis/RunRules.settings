@@ -14,6 +14,7 @@
 <programArgument argument="MPPRStartCT" value="1"/>
 <programArgument argument="MPPREndCT" value="16"/>
 <programArgument argument="numPipes" value="30"/>
+<programArgument argument="loopLatency" value="12"/>
 </runConfiguration>
 <selectEngineTarget enabled="false">VECTIS</selectEngineTarget>
 <overrideEnableMPCX enabled="false" value="false"/>

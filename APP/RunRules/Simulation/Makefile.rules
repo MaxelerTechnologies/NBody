@@ -62,7 +62,7 @@ include/NBody.h: maxfiles/NBody.h
 maxfiles/NBody.max maxfiles/NBody.h:
 # Ensure that maxfiles do not get build by this Makefile when running in MaxIDE
 ifndef MAXIDE_RUN
-	env  MAX_BUILDPARAMS=" DFEModel=VECTIS  target=DFE_SIM  maxFileName=NBody numPipes='8' "  ant -v -f NBody.xml
+	env  MAX_BUILDPARAMS=" DFEModel=MAIA  target=DFE_SIM  maxFileName=NBody numPipes='2' loopLatency='14' "  ant -v -f NBody.xml
 else
 	test -f $@ || ( echo 'Maxfile unavailable: $@' >/dev/stderr ; exit 1 )
 endif
@@ -70,10 +70,10 @@ endif
 
 
 startsim:
-	'$(MAXCOMPILERDIR)/bin/maxcompilersim' -n NBodySim -c VECTIS -d 1  restart
+	'$(MAXCOMPILERDIR)/bin/maxcompilersim' -n NBodySim -c MAIA -d 1  restart
 
 stopsim:
-	'$(MAXCOMPILERDIR)/bin/maxcompilersim' -n NBodySim -c VECTIS -d 1  stop
+	'$(MAXCOMPILERDIR)/bin/maxcompilersim' -n NBodySim -c MAIA -d 1  stop
 
 clean: clean-dist clean-objects clean-installers
 distclean: clean clean-maxfiles

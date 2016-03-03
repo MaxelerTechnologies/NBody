@@ -29,6 +29,7 @@
             <classpath>
                 <pathelement path="${env.ANT_MAXELER_INTERNAL_MAXIDE_JARS}"/>
                 <pathelement path="../RunRules/Vectis/dist/bin"/>
+                <pathelement path="/network-raid/opt/maxq/maxq-ctl.jar"/>
                 <pathelement path="${maxcompilerdirpath}"/>
                 <pathelement path="${EnvClassPath}"/>
             </classpath>
