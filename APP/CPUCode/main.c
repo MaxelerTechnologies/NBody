@@ -220,6 +220,9 @@ static void run_dfe(int N, int nt, float EPS, const float *m,
         dfe_particles[i].m = m[i];
     }
     for (int i = N; i < newN; i++) {
+    	dfe_particles[i].x = 0;
+    	dfe_particles[i].y = 0;
+    	dfe_particles[i].z = 0;
         /* Setting a null mass on the padded particles ensures they have no effect */
         dfe_particles[i].m = 0;
     }
