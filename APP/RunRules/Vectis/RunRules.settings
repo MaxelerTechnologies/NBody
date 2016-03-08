@@ -10,7 +10,7 @@
 <runConfiguration askBeforeAutoBuild="true">
 <mainClass>com.maxeler.applibrary.nbody.NBodyBuilder</mainClass>
 <maxHeapSize>2</maxHeapSize>
-<programArgument argument="MPPRThreads" value="2"/>
+<programArgument argument="MPPRThreads" value="1"/>
 <programArgument argument="MPPRStartCT" value="1"/>
 <programArgument argument="MPPREndCT" value="16"/>
 <programArgument argument="numPipes" value="30"/>
